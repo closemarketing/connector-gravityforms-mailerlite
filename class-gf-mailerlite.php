@@ -613,23 +613,7 @@ class GF_CGFM extends GFFeedAddOn {
 
 		}
 
-		// Initialize subscriber object.
-		$subscriber = array(
-			'EmailAddress' => $this->get_field_value( $form, $entry, $feed['meta']['listFields_email'] ),
-			'Name'         => $this->get_field_value( $form, $entry, rgars( $feed, 'meta/listFields_fullname' ) ),
-			'CustomFields' => array(),
-			'Resubscribe'  => rgars( $feed, 'meta/resubscribe' ) ? true : false,
-		);
-
-		// If provided email address is empty or invalid, exit.
-		if ( GFCommon::is_invalid_or_empty_email( $subscriber['EmailAddress'] ) ) {
-
-			// Log that subscriber could not be added.
-			$this->add_feed_error( esc_html__( 'User could not be subscribed because provided email address was empty or invalid.', 'connector-gravityforms-mailerlite' ), $feed, $entry, $form );
-
-			return;
-
-		}
+		$subscriber = array();
 
 		// Get field map.
 		$field_map = $this->get_field_map_fields( $feed, 'listFields' );
@@ -650,11 +634,6 @@ class GF_CGFM extends GFFeedAddOn {
 		// Loop through field map.
 		foreach ( $field_map as $key => $field_id ) {
 
-			// If this is an email or name field, skip it.
-			if ( in_array( $key, array( 'email', 'fullname' ) ) ) {
-				continue;
-			}
-
 			// Get field value.
 			$field_values = $this->get_field_value( $form, $entry, $field_id );
 
@@ -671,11 +650,8 @@ class GF_CGFM extends GFFeedAddOn {
 					continue;
 				}
 
-				// Add custom field.
-				$subscriber['CustomFields'][] = array(
-					'Key'   => $key,
-					'Value' => $field_value,
-				);
+				// Add custom values.
+				$subscriber[$key] = $field_value;
 
 			}
 
@@ -694,9 +670,16 @@ class GF_CGFM extends GFFeedAddOn {
 		$subscriber = gf_apply_filters( 'gform_mailerlite_override_subscriber', $form['id'], $subscriber, $entry, $form, $feed );
 
 		try {
+			$groupsApi = $this->api->groups();
 
 			// Subscribe user.
-			$this->api->add_subscriber( $subscriber, rgars( $feed, 'meta/groupList' ) );
+			$addedSubscriber = $groupsApi->addSubscriber( rgars( $feed, 'meta/groupList' ), $subscriber ); 
+			// returns added subscriber
+			if ( isset( $addedSubscriber->id ) ) {
+				return $addedSubscriber->id;
+			} else {
+				return false;
+			}
 
 			// Log that user was subscribed.
 			$this->log_debug( __METHOD__ . '(): User was subscribed to list.' );
