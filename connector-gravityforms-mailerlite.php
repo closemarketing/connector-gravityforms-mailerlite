@@ -22,6 +22,8 @@ load_plugin_textdomain('widgets-so-genesis', false, dirname(plugin_basename(__FI
 
 define('GF_CGFM_VERSION', '1.0');
 
+require 'vendor/autoload.php';
+
 // If Gravity Forms is loaded, bootstrap the Campaign Monitor Add-On.
 add_action( 'gform_loaded', array( 'GF_CGFM_Bootstrap', 'load' ), 5 );
 

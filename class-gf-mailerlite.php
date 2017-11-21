@@ -220,9 +220,7 @@ class GF_CGFM extends GFFeedAddOn {
 						'type'              => 'text',
 						'class'             => 'medium',
 						'feedback_callback' => array( $this, 'initialize_api' ),
-						'description'       => sprintf(
-							'<small>%s</small>',
-							esc_html__( "You can find your unique API key by clicking on the 'Account Settings' link at the top of your Mailer Lite screen. You can also enter your client API key here.", 'connector-gravityforms-mailerlite' )
+						'description'       => sprintf( wp_kses( __( 'You can find your Developer API key <a href="%s" target="_blank">here</a>.', 'woo-mailerlite' ), array(  'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://app.mailerlite.com/integrations/api/' ) 
 						),
 					),
 				)
@@ -243,10 +241,8 @@ class GF_CGFM extends GFFeedAddOn {
 	 * @since  Unknown
 	 * @access public
 	 *
-	 * @uses GFCampaignMonitor::get_clients_as_choices()
 	 * @uses GFCampaignMonitor::get_custom_fields_as_field_map()
 	 * @uses GFCampaignMonitor::get_lists_as_choices()
-	 * @uses GFCampaignMonitor::is_clients_hidden()
 	 *
 	 * @return array The feed settings.
 	 */
@@ -269,26 +265,12 @@ class GF_CGFM extends GFFeedAddOn {
 						),
 					),
 					array(
-						'name'     => 'client',
-						'label'    => esc_html__( 'Client', 'connector-gravityforms-mailerlite' ),
-						'type'     => 'select',
-						'onchange' => 'jQuery(this).parents("form").submit();',
-						'hidden'   => $this->is_clients_hidden(),
-						'choices'  => $this->get_clients_as_choices(),
-						'tooltip'  => sprintf(
-							'<h6>%s</h6>%s',
-							esc_html__( 'Client', 'connector-gravityforms-mailerlite' ),
-							esc_html__( 'Select the Mailer Lite client you would like to add your contacts to.', 'connector-gravityforms-mailerlite' )
-						),
-					),
-					array(
-						'name'       => 'contactList',
-						'label'      => esc_html__( 'Contact List', 'connector-gravityforms-mailerlite' ),
+						'name'       => 'groupList',
+						'label'      => esc_html__( 'Group List', 'connector-gravityforms-mailerlite' ),
 						'type'       => 'select',
 						'required'   => true,
 						'choices'    => $this->get_lists_as_choices(),
 						'onchange'   => 'jQuery(this).parents("form").submit();',
-						'dependency' => array( $this, 'has_selected_client' ),
 						'no_choices' => sprintf(
 							esc_html__( 'No clients found. Please configure one or more clients in your %sMailer Lite%s account.', 'connector-gravityforms-mailerlite' ),
 							'<a href="http://www.mailerlite.com" target="_blank">',
@@ -304,7 +286,7 @@ class GF_CGFM extends GFFeedAddOn {
 						'name'       => 'listFields',
 						'label'      => esc_html__( 'Map Fields', 'connector-gravityforms-mailerlite' ),
 						'type'       => 'field_map',
-						'dependency' => 'contactList',
+						'dependency' => 'groupList',
 						'field_map'  => $this->get_custom_fields_as_field_map(),
 						'tooltip'    => sprintf(
 							'<h6>%s</h6>%s',
@@ -316,7 +298,7 @@ class GF_CGFM extends GFFeedAddOn {
 						'name'       => 'optin',
 						'label'      => esc_html__( 'Conditional Logic', 'connector-gravityforms-mailerlite' ),
 						'type'       => 'feed_condition',
-						'dependency' => 'contactList',
+						'dependency' => 'groupList',
 						'tooltip'    => sprintf(
 							'<h6>%s</h6>%s',
 							esc_html__( 'Conditional Logic', 'connector-gravityforms-mailerlite' ),
@@ -327,12 +309,12 @@ class GF_CGFM extends GFFeedAddOn {
 						'name'       => 'resubscribe',
 						'label'      => esc_html__( 'Options', 'connector-gravityforms-mailerlite' ),
 						'type'       => 'option_resubscribe',
-						'dependency' => 'contactList',
+						'dependency' => 'groupList',
 						'onclick'    => "if(this.checked){jQuery('#mailerlite_resubscribe_warning').slideDown();} else{jQuery('#mailerlite_resubscribe_warning').slideUp();}",
 					),
 					array(
 						'type'       => 'save',
-						'dependency' => 'contactList',
+						'dependency' => 'groupList',
 					),
 				)
 			),
@@ -356,17 +338,7 @@ class GF_CGFM extends GFFeedAddOn {
 	public function get_custom_fields_as_field_map() {
 
 		// Initialize field map.
-		$field_map = array(
-			array(
-				'name'     => 'email',
-				'label'    => esc_html__( 'Email Address', 'connector-gravityforms-mailerlite' ),
-				'required' => true,
-			),
-			array(
-				'name'     => 'fullname',
-				'label'    => esc_html__( 'Full Name', 'connector-gravityforms-mailerlite' ),
-			),
-		);
+		$field_map = array();
 
 		// If API is not initialized, return.
 		if ( ! $this->initialize_api() ) {
@@ -374,12 +346,13 @@ class GF_CGFM extends GFFeedAddOn {
 		}
 
 		// Get the list ID.
-		$list_id = $this->get_setting( 'contactList' );
+		$list_id = $this->get_setting( 'groupList' );
 
 		try {
 
 			// Get custom fields.
-			$custom_fields = $this->api->get_custom_fields( $list_id );
+			$fieldsApi = $this->api->fields();
+			$custom_fields = $fieldsApi->get(); // returns array of fields
 
 		} catch ( \Exception $e ) {
 
@@ -393,13 +366,10 @@ class GF_CGFM extends GFFeedAddOn {
 		// Loop through custom fields.
 		foreach ( $custom_fields as $custom_field ) {
 
-			// Prepare custom field key.
-			$field_key = str_replace( array( '[', ']' ), '', $custom_field['Key'] );
-
 			// Add custom field to field map.
 			$field_map[] = array(
-				'name'  => $field_key,
-				'label' => esc_html( $custom_field['FieldName'] ),
+				'name'  => $custom_field->key,
+				'label' => $custom_field->title,
 			);
 
 		}
@@ -498,8 +468,7 @@ class GF_CGFM extends GFFeedAddOn {
 
 		return array(
 			'feedName'    => esc_html__( 'Name', 'connector-gravityforms-mailerlite' ),
-			'client'      => esc_html__( 'Mailer Lite Client', 'connector-gravityforms-mailerlite' ),
-			'contactList' => esc_html__( 'Mailer Lite List', 'connector-gravityforms-mailerlite' )
+			'groupList' => esc_html__( 'Mailer Lite Group', 'connector-gravityforms-mailerlite' )
 		);
 
 	}
@@ -561,7 +530,7 @@ class GF_CGFM extends GFFeedAddOn {
 	}
 
 	/**
-	 * Returns the value to be displayed in the contactList column.
+	 * Returns the value to be displayed in the groupList column.
 	 *
 	 * @since  Unknown
 	 * @access public
@@ -574,19 +543,25 @@ class GF_CGFM extends GFFeedAddOn {
 	 *
 	 * @return string
 	 */
-	public function get_column_value_contactList( $feed ) {
+	public function get_column_value_groupList( $feed ) {
 
 		// If we cannot initialize the API, return list ID.
-		if ( ! $this->initialize_api() || ! rgars( $feed, 'meta/contactList' ) ) {
-			return rgars( $feed, 'meta/contactList' );
+		if ( ! $this->initialize_api() || ! rgars( $feed, 'meta/groupList' ) ) {
+			return rgars( $feed, 'meta/groupList' );
 		}
 
 		try {
 
-			// Get list.
-			$list = $this->api->get_list( $feed['meta']['contactList'] );
+			// Get group
+			$groups = $this->api->groups();
+			$response = $groups->get();
+			$results = $response->toArray();
 
-			return esc_html( $list['Title'] );
+			foreach ($results as $group) :
+				if($group->id==$feed['meta']['groupList']) $group_name = $group->name;
+			endforeach;
+
+			return esc_html( $group_name );
 
 		} catch ( \Exception $e ) {
 
@@ -721,7 +696,7 @@ class GF_CGFM extends GFFeedAddOn {
 		try {
 
 			// Subscribe user.
-			$this->api->add_subscriber( $subscriber, rgars( $feed, 'meta/contactList' ) );
+			$this->api->add_subscriber( $subscriber, rgars( $feed, 'meta/groupList' ) );
 
 			// Log that user was subscribed.
 			$this->log_debug( __METHOD__ . '(): User was subscribed to list.' );
@@ -880,11 +855,6 @@ class GF_CGFM extends GFFeedAddOn {
 			return true;
 		}
 
-		// Load the API library.
-		if ( ! class_exists( 'GF_CampaignMonitor_API' ) ) {
-			require_once( 'includes/class-gf-mailerlite-api.php' );
-		}
-
 		// Get the plugin settings.
 		$settings = $this->get_plugin_settings();
 
@@ -897,20 +867,24 @@ class GF_CGFM extends GFFeedAddOn {
 		$this->log_debug( __METHOD__ . '(): Validating API Info.' );
 
 		// Setup a new Fillable PDFs API object with the API credentials.
-		$api = new GF_CampaignMonitor_API( $settings['apiKey'] );
+		$api_mailerlite = new \MailerLiteApi\MailerLite( $settings['apiKey'] );
 
 		try {
+			$groups = $api_mailerlite->groups();
+			$response = $groups->get();
+			$results = $response->toArray();
 
-			// Get system date.
-			$api->auth_test();
-
-			// Assign API library to instance.
-			$this->api = $api;
+			if ( is_array( $results ) && ! isset( $results[0]->error->message ) ) {
+				// Assign API library to instance.
+				$this->api = $api_mailerlite;
+				
+				return true;
+			}
 
 			// Log that authentication test passed.
 			$this->log_debug( __METHOD__ . '(): API credentials are valid.' );
 
-			return true;
+			return false;
 
 		} catch ( \Exception $e ) {
 
@@ -920,107 +894,6 @@ class GF_CGFM extends GFFeedAddOn {
 			return false;
 
 		}
-
-	}
-
-	/**
-	 * Get default Mailer Lite client ID.
-	 *
-	 * @since  3.5
-	 * @access public
-	 *
-	 * @uses GFAddOn::log_error()
-	 * @uses GFCampaignMonitor::initialize_api()
-	 * @uses GF_CampaignMonitor_API::get_clients()
-	 *
-	 * @return bool|array|string
-	 */
-	public function get_default_client( $return_id = true ) {
-
-		// If API cannot be initialized, return false.
-		if ( ! $this->initialize_api() ) {
-			return false;
-		}
-
-		try {
-
-			// Get clients.
-			$clients = $this->api->get_clients();
-
-			// Get default client.
-			$client = array_shift( $clients );
-
-			return $return_id ? $client['ClientID'] : $client;
-
-		} catch ( \Exception $e ) {
-
-			// Log that we could not retrieve the clients.
-			$this->log_error( __METHOD__ . '(): Unable to retrieve clients; ' . $e->getMessage() );
-
-			return false;
-
-		}
-
-	}
-
-	/**
-	 * Get available Mailer Lite clients as choices.
-	 *
-	 * @since  3.5
-	 * @access public
-	 *
-	 * @uses GFAddOn::log_error()
-	 * @uses GFCampaignMonitor::initialize_api()
-	 * @uses GF_CampaignMonitor_API::get_clients()
-	 *
-	 * @return array
-	 */
-	public function get_clients_as_choices() {
-
-		// If API cannot be initialized, return array.
-		if ( ! $this->initialize_api() ) {
-			return array();
-		}
-
-		// Initialize choices array.
-		$choices = array(
-			array(
-				'label' => esc_html__( 'Select a Client', 'connector-gravityforms-mailerlite' ),
-				'value' => '',
-			)
-		);
-
-		try {
-
-			// Get clients.
-			$clients = $this->api->get_clients();
-
-		} catch ( \Exception $e ) {
-
-			// Log that we could not retrieve the clients.
-			$this->log_error( __METHOD__ . '(): Unable to retrieve clients; ' . $e->getMessage() );
-
-			return array();
-
-		}
-
-		// If no clients were found, return.
-		if ( empty( $clients ) ) {
-			return array();
-		}
-
-		// Loop through array.
-		foreach ( $clients as $client ) {
-
-			// Add client as choice.
-			$choices[] = array(
-				'label' => esc_html( $client['Name'] ),
-				'value' => esc_attr( $client['ClientID'] ),
-			);
-
-		}
-
-		return $choices;
 
 	}
 
@@ -1037,11 +910,10 @@ class GF_CGFM extends GFFeedAddOn {
 	 * @uses GFAddOn::get_setting()
 	 * @uses GFCampaignMonitor::initialize_api()
 	 * @uses GF_CampaignMonitor_API::get_lists()
-	 * @uses GF_CampaignMonitor_API::set_client_id()
 	 *
 	 * @return array
 	 */
-	public function get_lists_as_choices( $client_id = null ) {
+	public function get_lists_as_choices( ) {
 
 		// If API cannot be initialized, return array.
 		if ( ! $this->initialize_api() ) {
@@ -1051,35 +923,17 @@ class GF_CGFM extends GFFeedAddOn {
 		// Initialize choices array.
 		$choices = array(
 			array(
-				'label' => esc_html__( 'Select a List', 'connector-gravityforms-mailerlite' ),
+				'label' => esc_html__( 'Select a Group', 'connector-gravityforms-mailerlite' ),
 				'value' => '',
 			)
 		);
 
-		// Get client ID.
-		if ( empty( $client_id ) ) {
-
-			// If a client has been selected, use it.
-			if ( $this->get_setting( 'client' ) ) {
-
-				$client_id = $this->get_setting( 'client' );
-
-			} else {
-
-				// Use default client ID.
-				$client_id = $this->get_default_client();
-
-			}
-
-		}
 
 		try {
-
-			// Set client ID.
-			$this->api->set_client_id( $client_id );
-
 			// Get lists.
-			$lists = $this->api->get_lists();
+			$groups_api = $this->api->groups();
+			$response = $groups_api->get();
+			$groups = $response->toArray();
 
 		} catch ( \Exception $e ) {
 
@@ -1091,17 +945,17 @@ class GF_CGFM extends GFFeedAddOn {
 		}
 
 		// If no lists were found, return.
-		if ( empty( $lists ) ) {
+		if ( empty( $groups ) ) {
 			return array();
 		}
 
 		// Loop through array.
-		foreach ( $lists as $list ) {
+		foreach ( $groups as $group ) {
 
 			// Add list as choice.
 			$choices[] = array(
-				'label' => esc_html( $list['Name'] ),
-				'value' => esc_attr( $list['ListID'] ),
+				'label' => esc_html( $group->name ),
+				'value' => esc_attr( $group->id ),
 			);
 
 		}
@@ -1275,7 +1129,7 @@ class GF_CGFM extends GFFeedAddOn {
 			$new_meta = array(
 				'feedName'    => $feed_name,
 				'client'      => rgar( $old_feed['meta'], 'client_id' ),
-				'contactList' => rgar( $old_feed['meta'], 'contact_list_id' ),
+				'groupList' => rgar( $old_feed['meta'], 'contact_list_id' ),
 				'resubscribe' => rgar( $old_feed['meta'], 'resubscribe' ),
 			);
 
