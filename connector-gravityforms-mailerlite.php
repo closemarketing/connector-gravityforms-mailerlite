@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Connector GravityForms Mailerlite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
- * Description: Widgets that you could need in your Genesis Framework web.
+ * Description: Connects GravityForms with MailerLite.
  * Author: closemarketing, davidperez
  * Author URI: https://www.closemarketing.es
  * Version: 1.0

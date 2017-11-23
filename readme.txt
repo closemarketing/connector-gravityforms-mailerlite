@@ -10,14 +10,12 @@ Version: 1.0
 This plugin connects GravityForms with MailerLite.
 
 == Description ==
-> This plugin requires the <a href="http://www.closemarketing.es/likes/gravityforms/">Gravity Forms plugin</a>. <strong>Don't use Gravity Forms? <a href="http://www.closemarketing.es/likes/gravityforms/">Buy the plugin</a></strong> and start using this revolutionary plugin!
-
-GravityForms plugin gives you the posibility to create forms in a very simple way. It has a lot of addons that connects GravityForms with online services, but MailerLite is not in that list. 
+[GravityForms](https://www.closemarketing.es/likes/gravityforms/) plugin gives you the posibility to create forms in a very simple way. It has a lot of addons that connects GravityForms with online services, but [MailerLite](https://www.closemarketing.es/likes/mailerlite/) is not in that list. 
 
 Only with your API Key from MailerLite you will connect every form to MailerLite, in order to keep all your subscribers in MailerLite. 
 
 Steps: 
-- Go to Form > Settings > MailerLite. Put your MailerLite API Key that is in integrations tab.
+- Go GravityForms > Settings > MailerLite. Put your MailerLite API Key that is in integrations tab.
 - Once the API is valid, you will have to go to every form that needs to connect to MailerLite.
 - In every Form > MailerLite > Create new feed. You will have to map every form field to MailerLite fields.
 
@@ -44,7 +42,7 @@ WordPress installation and then activate the Plugin from Plugins page.
 
 
 == Developers ==
-[Official Repository Github](https://github.com/closemarketing/widgets-so-genesis)
+[Official Repository Github](https://github.com/closemarketing/connector-gravityforms-mailerlite)
 
 == Changelog ==
 
