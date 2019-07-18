@@ -3,7 +3,7 @@ Contributors: closemarketing, davidperez
 Tags: genesis, widgets
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZYGC6AT5JFQVE
 Requires at least: 4.0
-Tested up to: 5.0.3
+Tested up to: 5.2.2
 Stable tag: 1.1
 Version: 1.1
 
@@ -48,15 +48,7 @@ WordPress installation and then activate the Plugin from Plugins page.
 
 = 1.1 =
 *     Error not Mapping fields.
-  - Updating clue/stream-filter (v1.4.0 => v1.4.1): Downloading (0%)           
-Downloading (100%)         
-  - Updating php-http/message (1.6.0 => 1.7.2): Downloading (100%)         
-  - Updating php-http/discovery (1.3.0 => 1.6.1): Downloading (100%)         
-  - Updating php-http/curl-client (v1.7.0 => v1.7.1): Downloading (0%)           
-Downloading (100%)         
-  - Installing ralouphie/getallheaders (2.0.5): Loading from cache
-  - Updating guzzlehttp/psr7 (1.4.2 => 1.5.2): Loading from cache
-  - Updating mailerlite/mailerlite-api-v2-php-sdk (0.2.2 => 0.2.3): Downloading (100%)    
+*	Libraries updated.
   
 = 1.0 =
 *     First released.

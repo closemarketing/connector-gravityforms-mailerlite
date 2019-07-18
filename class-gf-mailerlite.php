@@ -641,11 +641,14 @@ class GF_CGFM extends GFFeedAddOn {
 					continue;
 				}
 
-				// Add custom values.
-				$subscriber[$key] = $field_value;
-
+				if ( 'name' === $key || 'email' === $key ) {
+					// Add normal values.
+					$subscriber[ $key ] = $field_value;
+				} else {
+					// Add custom values.
+					$subscriber['fields'][ $key ] = $field_value;
+				}
 			}
-
 		}
 
 		/**
