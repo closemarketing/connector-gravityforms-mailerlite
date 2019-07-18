@@ -663,9 +663,6 @@ class GF_CGFM extends GFFeedAddOn {
 		 */
 		$subscriber = gf_apply_filters( 'gform_mailerlite_override_subscriber', $form['id'], $subscriber, $entry, $form, $feed );
 
-		echo '<pre>';
-		print_r($subscriber);
-		echo '</pre>';
 		try {
 			$groups_api = $this->api->groups();
 
