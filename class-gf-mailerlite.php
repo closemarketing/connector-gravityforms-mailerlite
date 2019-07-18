@@ -1,15 +1,15 @@
 <?php
-
-GFForms::include_feed_addon_framework();
-
 /**
  * Gravity Forms Mailer Lite Add-On.
  *
- * @since     Unknown
+ * @since     1.0
  * @package   GravityForms
- * @author    Rocketgenius
+ * @author    Closemarketing
  * @copyright Copyright (c) 2017, Rocketgenius
  */
+
+GFForms::include_feed_addon_framework();
+
 class GF_CGFM extends GFFeedAddOn {
 
 	/**
@@ -229,10 +229,6 @@ class GF_CGFM extends GFFeedAddOn {
 
 	}
 
-
-
-
-
 	// # FEED SETTINGS -------------------------------------------------------------------------------------------------
 
 	/**
@@ -373,7 +369,6 @@ class GF_CGFM extends GFFeedAddOn {
 			);
 
 		}
-
 		return $field_map;
 
 	}
@@ -432,10 +427,6 @@ class GF_CGFM extends GFFeedAddOn {
 		return $html;
 
 	}
-
-
-
-
 
 	// # FEED LIST -------------------------------------------------------------------------------------------------
 
@@ -557,9 +548,13 @@ class GF_CGFM extends GFFeedAddOn {
 			$response = $groups->get();
 			$results = $response->toArray();
 
-			foreach ($results as $group) :
-				if($group->id==$feed['meta']['groupList']) $group_name = $group->name;
-			endforeach;
+			foreach ( $results as $group ) {
+				if ( $group->id === $feed['meta']['groupList'] ) {
+					$group_name = $group->name;
+				} else {
+					$group_name = __( 'None', 'connector-gravityforms-mailerlite' );
+				}
+			}
 
 			return esc_html( $group_name );
 
@@ -576,10 +571,6 @@ class GF_CGFM extends GFFeedAddOn {
 		}
 
 	}
-
-
-
-
 
 	// # FEED PROCESSING -----------------------------------------------------------------------------------------------
 
@@ -669,14 +660,17 @@ class GF_CGFM extends GFFeedAddOn {
 		 */
 		$subscriber = gf_apply_filters( 'gform_mailerlite_override_subscriber', $form['id'], $subscriber, $entry, $form, $feed );
 
+		echo '<pre>';
+		print_r($subscriber);
+		echo '</pre>';
 		try {
-			$groupsApi = $this->api->groups();
+			$groups_api = $this->api->groups();
 
 			// Subscribe user.
-			$addedSubscriber = $groupsApi->addSubscriber( rgars( $feed, 'meta/groupList' ), $subscriber ); 
-			// returns added subscriber
-			if ( isset( $addedSubscriber->id ) ) {
-				return $addedSubscriber->id;
+			$added_subscriber = $groups_api->addSubscriber( rgars( $feed, 'meta/groupList' ), $subscriber ); 
+			// returns added subscriber.
+			if ( isset( $added_subscriber->id ) ) {
+				return $added_subscriber->id;
 			} else {
 				return false;
 			}

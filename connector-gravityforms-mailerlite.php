@@ -5,7 +5,7 @@
  * Description: Connects GravityForms with MailerLite.
  * Author: closemarketing, davidperez
  * Author URI: https://www.closemarketing.es
- * Version: 1.0
+ * Version: 1.1
  * 
  * Text Domain: connector-gravityforms-mailerlite
  * 
@@ -15,12 +15,12 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) || exit;
 
-//Loads translation
-load_plugin_textdomain('widgets-so-genesis', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+// Loads translation.
+load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define('GF_CGFM_VERSION', '1.0');
+define( 'GF_CGFM_VERSION', '1.1' );
 
 require 'vendor/autoload.php';
 
@@ -46,7 +46,7 @@ class GF_CGFM_Bootstrap {
 			return;
 		}
 
-		require_once( 'class-gf-mailerlite.php' );
+		require_once 'class-gf-mailerlite.php';
 
 		GFAddOn::register( 'GF_CGFM' );
 
