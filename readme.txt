@@ -4,8 +4,8 @@ Tags: genesis, widgets
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZYGC6AT5JFQVE
 Requires at least: 4.0
 Tested up to: 5.2.2
-Stable tag: 1.1
-Version: 1.1
+Stable tag: 1.2
+Version: 1.2
 
 This plugin connects GravityForms with MailerLite.
 
@@ -46,6 +46,10 @@ WordPress installation and then activate the Plugin from Plugins page.
 
 == Changelog ==
 
+= 1.2 =
+*     Fixed Conflict with WooCommerce – MailerLite
+*     Updated libraries: ralouphie/getallheaders (2.0.5 => 3.0.3), guzzlehttp/psr7 (1.5.2 => 1.6.1), php-http/message (1.7.2 => 1.8.0), and php-http/discovery (1.6.1 => 1.7.0)
+
 = 1.1 =
 *     Error not Mapping fields.
 *	Libraries updated.
@@ -55,4 +59,4 @@ WordPress installation and then activate the Plugin from Plugins page.
 
 == Links ==
 
-*     [Closemarketing](https://www.closemarketing.es/)
+*     [Closemarketing](https://www.closemarketing.net/)
