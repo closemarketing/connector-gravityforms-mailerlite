@@ -3,7 +3,7 @@
  * Plugin Name: Connector GravityForms Mailerlite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
  * Description: Connects GravityForms with MailerLite.
- * Author: closemarketing, davidperez
+ * Author: closemarketing
  * Author URI: https://www.closemarketing.es
  * Version: 1.3
  * 
