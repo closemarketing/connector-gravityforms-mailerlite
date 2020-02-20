@@ -38,6 +38,10 @@ class ComposerStaticInitd76a732996f8259f5798d9ed9b6e80ea
         array (
             'Clue\\StreamFilter\\' => 18,
         ),
+        'A' => 
+        array (
+            'Appsero\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -77,6 +81,10 @@ class ComposerStaticInitd76a732996f8259f5798d9ed9b6e80ea
         'Clue\\StreamFilter\\' => 
         array (
             0 => __DIR__ . '/..' . '/clue/stream-filter/src',
+        ),
+        'Appsero\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/appsero/client/src',
         ),
     );
 
