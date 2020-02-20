@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b96b106fee8350f802e6c673a4f7328a",
+    "content-hash": "598cd50fd8e41fff3120d00f012b61eb",
     "packages": [
+        {
+            "name": "appsero/client",
+            "version": "v1.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AppSero/client.git",
+                "reference": "0b40040a22c46a7e101dec09a886f551a02b8737"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AppSero/client/zipball/0b40040a22c46a7e101dec09a886f551a02b8737",
+                "reference": "0b40040a22c46a7e101dec09a886f551a02b8737",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Appsero\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tareq Hasan",
+                    "email": "tareq@appsero.com"
+                }
+            ],
+            "description": "Appsero Client",
+            "keywords": [
+                "analytics",
+                "plugin",
+                "theme",
+                "wordpress"
+            ],
+            "time": "2019-12-19T09:55:46+00:00"
+        },
         {
             "name": "clue/stream-filter",
             "version": "v1.4.1",

@@ -3,9 +3,9 @@ Contributors: closemarketing, davidperez
 Tags: genesis, widgets
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZYGC6AT5JFQVE
 Requires at least: 4.0
-Tested up to: 5.2.2
-Stable tag: 1.2
-Version: 1.2
+Tested up to: 5.4
+Stable tag: 1.3
+Version: 1.3
 
 This plugin connects GravityForms with MailerLite.
 
@@ -20,6 +20,15 @@ Steps:
 - In every Form > MailerLite > Create new feed. You will have to map every form field to MailerLite fields.
 
 That's all! Every user that fills that form, It will upload lead to MailerLite. 
+
+## Privacy Policy 
+Connector GravityForms and MailerLite uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users. 
+
+Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
 
 
 Closemarketing plugins for GravityForms:
@@ -45,6 +54,10 @@ WordPress installation and then activate the Plugin from Plugins page.
 [Official Repository Github](https://github.com/closemarketing/connector-gravityforms-mailerlite)
 
 == Changelog ==
+= 1.3 =
+*     Fixed fatal error is_plugin_active.
+*     Tested WordPress 5.4.
+*     Fixed Grouplist not getting in Feeds.
 
 = 1.2 =
 *     Fixed Conflict with WooCommerce – MailerLite

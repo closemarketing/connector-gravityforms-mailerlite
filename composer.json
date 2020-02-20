@@ -1,5 +1,6 @@
 {
     "require": {
-        "mailerlite/mailerlite-api-v2-php-sdk": "^0.2.2"
+        "mailerlite/mailerlite-api-v2-php-sdk": "^0.2.2",
+        "appsero/client": "^1.1"
     }
 }

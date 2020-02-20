@@ -5,7 +5,7 @@
  * Description: Connects GravityForms with MailerLite.
  * Author: closemarketing, davidperez
  * Author URI: https://www.closemarketing.es
- * Version: 1.2
+ * Version: 1.3
  * 
  * Text Domain: connector-gravityforms-mailerlite
  * 
@@ -20,15 +20,42 @@ defined( 'ABSPATH' ) || exit;
 // Loads translation.
 load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define( 'GF_CGFM_VERSION', '1.2' );
+define( 'GF_CGFM_VERSION', '1.3' );
 
 /**
  * Detect plugin WooCommerce Mailerlite
  */
-if ( ! is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
-	// Plugin is activated.
-	require 'vendor/autoload.php';
+function cgm_is_plugin_active( $plugin ) {
+	return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
 }
+
+if ( ! cgm_is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
+	// Plugin is activated.
+	require __DIR__ . '/vendor/autoload.php';
+}
+
+
+/**
+ * Initialize the plugin tracker
+ *
+ * @return void
+ */
+function appsero_init_tracker_connector_gravityforms_mailerlite() {
+
+	if ( ! class_exists( 'Appsero\Client' ) ) {
+		require_once __DIR__ . '/vendor/appsero/src/Client.php';
+	}
+
+	$client = new Appsero\Client( '9390140b-d116-4001-814e-10f737ad5324', 'Connector GravityForms and MailerLite', __FILE__ );
+
+	// Active insights.
+	$client->insights()->init();
+
+	// Active automatic updater.
+	$client->updater();
+}
+appsero_init_tracker_connector_gravityforms_mailerlite();
+
 
 // If Gravity Forms is loaded, bootstrap the Campaign Monitor Add-On.
 add_action( 'gform_loaded', array( 'GF_CGFM_Bootstrap', 'load' ), 5 );
