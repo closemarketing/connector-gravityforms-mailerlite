@@ -25,7 +25,11 @@ define( 'GF_CGFM_VERSION', '1.2' );
 /**
  * Detect plugin WooCommerce Mailerlite
  */
-if ( ! is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
+function cgm_is_plugin_active( $plugin ) {
+	return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
+}
+
+if ( ! cgm_is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
 	// Plugin is activated.
 	require 'vendor/autoload.php';
 }
