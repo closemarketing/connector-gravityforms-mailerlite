@@ -538,14 +538,13 @@ class GF_CGFM extends GFFeedAddOn {
 		}
 
 		try {
-
 			// Get group
 			$groups = $this->api->groups();
 			$response = $groups->get();
 			$results = $response->toArray();
 
 			foreach ( $results as $group ) {
-				if ( $group->id === $feed['meta']['groupList'] ) {
+				if ( $group->id === (int) $feed['meta']['groupList'] ) {
 					$group_name = $group->name;
 				} else {
 					$group_name = __( 'None', 'connector-gravityforms-mailerlite' );
