@@ -5,7 +5,7 @@
  * Description: Connects GravityForms with MailerLite.
  * Author: closemarketing, davidperez
  * Author URI: https://www.closemarketing.es
- * Version: 1.3
+ * Version: 1.3.1
  * 
  * Text Domain: connector-gravityforms-mailerlite
  * 
@@ -43,7 +43,7 @@ if ( ! cgm_is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
 function appsero_init_tracker_connector_gravityforms_mailerlite() {
 
 	if ( ! class_exists( 'Appsero\Client' ) ) {
-		require_once __DIR__ . '/vendor/appsero/src/Client.php';
+		require_once __DIR__ . '/vendor/appsero/client/src/Client.php';
 	}
 
 	$client = new Appsero\Client( '9390140b-d116-4001-814e-10f737ad5324', 'Connector GravityForms and MailerLite', __FILE__ );
