@@ -3,7 +3,7 @@
  * Plugin Name: Connector GravityForms Mailerlite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
  * Description: Connects GravityForms with MailerLite.
- * Author: closemarketing, davidperez
+ * Author: closemarketing
  * Author URI: https://www.closemarketing.es
  * Version: 1.3.2
  *
@@ -32,6 +32,24 @@ function cgm_is_plugin_active( $plugin ) {
 if ( ! cgm_is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
 	// Plugin is activated.
 	require __DIR__ . '/vendor/autoload.php';
+}
+
+register_activation_hook( __FILE__, 'connector_gravityforms_activation_check' );
+/**
+ * Checks for activated Genesis Framework and its minimum version before allowing plugin to activate
+ *
+ * @author Nathan Rice, Remkus de Vries
+ * @uconnector_gravityforms_activation_check()
+ * @since 1.3.2
+ * @version 1.0
+ */
+
+function connector_gravityforms_activation_check() {
+	// Restrict activation to only when the Genesis Framework is activated.
+	if ( ! cgm_is_plugin_active( 'gravityforms/gravityforms.php' ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );  // Deactivate ourself.
+		wp_die( sprintf( __( 'Whoa.. this plugin actually works, really, when you have installed the %1$sGravity Forms Plugin%2$s', 'connector-gravityforms-mailerlite' ), '<a href="https://www.closemarketing.es/go/gravityforms/" target="_new">', '</a>' ) );
+	}
 }
 
 // If Gravity Forms is loaded, bootstrap the Campaign Monitor Add-On.

@@ -1,5 +1,5 @@
 === Connector GravityForms and MailerLite ===
-Contributors: closemarketing, davidperez
+Contributors: closemarketing, davidperez, sacrajaimez
 Tags: genesis, widgets
 Donate link: https://www.closemarketing.es/go/donate/	
 Requires at least: 4.0
@@ -48,6 +48,7 @@ WordPress installation and then activate the Plugin from Plugins page.
 = 1.3.2 =
 *     Removed Appsero library.
 *     Updated Mailerlite SDK.
+*     Detects GravityForms installed.
 
 = 1.3.1 =
 *     Fixed fatal error.
