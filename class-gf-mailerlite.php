@@ -264,12 +264,12 @@ class GF_CGFM extends GFFeedAddOn {
 						'choices'    => $this->get_lists_as_choices(),
 						'onchange'   => 'jQuery(this).parents("form").submit();',
 						'no_choices' => sprintf(
-							esc_html__( 'No clients found. Please configure one or more clients in your %sMailer Lite%s account.', 'connector-gravityforms-mailerlite' ),
+							esc_html__( 'No clients found. Please configure one or more clients in your %1$sMailer Lite%2$s account.', 'connector-gravityforms-mailerlite' ),
 							'<a href="http://www.mailerlite.com" target="_blank">',
 							'</a>'
 						),
 						'tooltip'    => sprintf(
-							'<h6>%</h6>%s',
+							'<h6>%s</h6>%s',
 							esc_html__( 'Contact List', 'connector-gravityforms-mailerlite' ),
 							esc_html__( 'Select the Mailer Lite list you would like to add your contacts to.', 'connector-gravityforms-mailerlite' )
 						),
@@ -546,6 +546,7 @@ class GF_CGFM extends GFFeedAddOn {
 			foreach ( $results as $group ) {
 				if ( $group->id === (int) $feed['meta']['groupList'] ) {
 					$group_name = $group->name;
+					break;
 				} else {
 					$group_name = __( 'None', 'connector-gravityforms-mailerlite' );
 				}
