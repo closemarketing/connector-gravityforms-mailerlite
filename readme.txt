@@ -30,12 +30,9 @@ Closemarketing plugins for GravityForms:
 - [Connector GravityForms and MailerLite](https://wordpress.org/plugins/connector-gravityforms-mailerlite/)
 
 
-Others Closemarketing plugins:
-- [Clean HTML in Editor](https://wordpress.org/plugins/clean-html/)
-- [Widgets for Genesis Framework](https://wordpress.org/plugins/widgets-so-genesis/)
-- [Closemarketing Custom Admin](https://wordpress.org/plugins/closemarketing-custom-admin/)
-- [Bootstrap ShortCodes for Content](https://wordpress.org/plugins/bootstrap-shortcodes-for-content/)
-- [Send SMS to Wordpress Users via Arsys](https://wordpress.org/plugins/send-sms-arsys/)
+Others Closemarketing Premium Plugins:
+- [Closemarketing.NET](https://closemarketing.net/productos-online/category/plugin-wordpress/?utm_source=WordPress.org)
+
 
 == Installation ==
 
