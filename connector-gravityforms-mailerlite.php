@@ -1,11 +1,11 @@
 <?php
 /*
- * Plugin Name: Connector GravityForms Mailerlite
+ * Plugin Name: Connector GravityForms MailerLite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
  * Description: Connects GravityForms with MailerLite.
  * Author: closemarketing
  * Author URI: https://www.closemarketing.es
- * Version: 1.3.2
+ * Version: 1.3.3
  *
  * Text Domain: connector-gravityforms-mailerlite
  *
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 // Loads translation.
 load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define( 'GF_CGFM_VERSION', '1.3.2' );
+define( 'GF_CGFM_VERSION', '1.3.3' );
 
 /**
  * Detect plugin WooCommerce Mailerlite

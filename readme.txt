@@ -3,14 +3,16 @@ Contributors: closemarketing, davidperez, sacrajaimez
 Tags: genesis, widgets
 Donate link: https://www.closemarketing.es/go/donate/	
 Requires at least: 4.0
-Tested up to: 5.4.1
-Stable tag: 1.3.2
-Version: 1.3.2
+Tested up to: 5.6
+Stable tag: 1.3.3
+Version: 1.3.3
 
 This plugin connects GravityForms with MailerLite.
 
 == Description ==
-[GravityForms](https://www.closemarketing.es/go/gravityforms/) plugin gives you the posibility to create forms in a very simple way. It has a lot of addons that connects GravityForms with online services, but [MailerLite](https://www.closemarketing.es/go/mailerlite/) is not in that list. 
+[GravityForms](https://www.closemarketing.es/go/gravityforms/) plugin gives you the posibility to create forms in a very simple way. It has a lot of addons that connects GravityForms with online services, but [MailerLite](https://www.closemarketing.es/go/mailerlite/) is not in that list.
+
+[We are experts in Mailerlite!](https://www.mailerlite.com/experts/closemarketing)
 
 Only with your API Key from MailerLite you will connect every form to MailerLite, in order to keep all your subscribers in MailerLite. 
 
@@ -45,6 +47,9 @@ WordPress installation and then activate the Plugin from Plugins page.
 [Official Repository Github](https://github.com/closemarketing/connector-gravityforms-mailerlite)
 
 == Changelog ==
+= 1.3.3 =
+*     Fixed name MailerLite.
+
 = 1.3.2 =
 *     Removed Appsero library.
 *     Updated Mailerlite SDK.

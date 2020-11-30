@@ -1,6 +1,6 @@
 <?php
 /**
- * Gravity Forms Mailer Lite Add-On.
+ * Gravity Forms MailerLite Add-On.
  *
  * @since     1.0
  * @package   GravityForms
@@ -22,7 +22,7 @@ class GF_CGFM extends GFFeedAddOn {
 	private static $_instance = null;
 
 	/**
-	 * Defines the version of the Mailer Lite Add-On.
+	 * Defines the version of the MailerLite Add-On.
 	 *
 	 * @since  Unknown
 	 * @access protected
@@ -91,7 +91,7 @@ class GF_CGFM extends GFFeedAddOn {
 	 * @access protected
 	 * @var    string $_short_title The short title.
 	 */
-	protected $_short_title = 'Mailer Lite';
+	protected $_short_title = 'MailerLite';
 
 	/**
 	 * Defines if Add-On should use Gravity Forms servers for update data.
@@ -130,7 +130,7 @@ class GF_CGFM extends GFFeedAddOn {
 	protected $_capabilities_uninstall = 'gravityforms_mailerlite_uninstall';
 
 	/**
-	 * Defines the capabilities needed for the Mailer Lite Add-On
+	 * Defines the capabilities needed for the MailerLite Add-On
 	 *
 	 * @since  Unknown
 	 * @access protected
@@ -139,11 +139,11 @@ class GF_CGFM extends GFFeedAddOn {
 	protected $_capabilities = array( 'gravityforms_mailerlite', 'gravityforms_mailerlite_uninstall' );
 
 	/**
-	 * Contains an instance of the Mailer Lite API library, if available.
+	 * Contains an instance of the MailerLite API library, if available.
 	 *
 	 * @since  3.5
 	 * @access protected
-	 * @var    object $api If available, contains an instance of the Mailer Lite API library.
+	 * @var    object $api If available, contains an instance of the MailerLite API library.
 	 */
 	public $api = null;
 
@@ -178,7 +178,7 @@ class GF_CGFM extends GFFeedAddOn {
 
 		$this->add_delayed_payment_support(
 			array(
-				'option_label' => esc_html__( 'Subscribe user to Mailer Lite only when payment is received.', 'connector-gravityforms-mailerlite' )
+				'option_label' => esc_html__( 'Subscribe user to MailerLite only when payment is received.', 'connector-gravityforms-mailerlite' )
 			)
 		);
 
@@ -200,11 +200,11 @@ class GF_CGFM extends GFFeedAddOn {
 
 		return array(
 			array(
-				'title'       => esc_html__( 'Mailer Lite Account Information', 'connector-gravityforms-mailerlite' ),
+				'title'       => esc_html__( 'MailerLite Account Information', 'connector-gravityforms-mailerlite' ),
 				'description' => sprintf(
 					'<p>%s</p>',
 					sprintf(
-						esc_html__( 'Mailer Lite is an email marketing software for designers and their clients. Use Gravity Forms to collect customer information and automatically add it to your client\'s Mailer Lite subscription list. If you don\'t have a Mailer Lite account, you can %1$ssign up for one here.%2$s', 'connector-gravityforms-mailerlite' ),
+						esc_html__( 'MailerLite is an email marketing software for designers and their clients. Use Gravity Forms to collect customer information and automatically add it to your client\'s MailerLite subscription list. If you don\'t have a MailerLite account, you can %1$ssign up for one here.%2$s', 'connector-gravityforms-mailerlite' ),
 						'<a href="http://www.mailerlite.com" target="_blank">',
 						'</a>'
 					)
@@ -242,7 +242,7 @@ class GF_CGFM extends GFFeedAddOn {
 
 		return array(
 			array(
-				'title'  => esc_html__( 'Mailer Lite Feed', 'connector-gravityforms-mailerlite' ),
+				'title'  => esc_html__( 'MailerLite Feed', 'connector-gravityforms-mailerlite' ),
 				'fields' => array(
 					array(
 						'name'     => 'feedName',
@@ -264,14 +264,14 @@ class GF_CGFM extends GFFeedAddOn {
 						'choices'    => $this->get_lists_as_choices(),
 						'onchange'   => 'jQuery(this).parents("form").submit();',
 						'no_choices' => sprintf(
-							esc_html__( 'No clients found. Please configure one or more clients in your %1$sMailer Lite%2$s account.', 'connector-gravityforms-mailerlite' ),
+							esc_html__( 'No clients found. Please configure one or more clients in your %1$sMailerLite%2$s account.', 'connector-gravityforms-mailerlite' ),
 							'<a href="http://www.mailerlite.com" target="_blank">',
 							'</a>'
 						),
 						'tooltip'    => sprintf(
 							'<h6>%s</h6>%s',
 							esc_html__( 'Contact List', 'connector-gravityforms-mailerlite' ),
-							esc_html__( 'Select the Mailer Lite list you would like to add your contacts to.', 'connector-gravityforms-mailerlite' )
+							esc_html__( 'Select the MailerLite list you would like to add your contacts to.', 'connector-gravityforms-mailerlite' )
 						),
 					),
 					array(
@@ -283,7 +283,7 @@ class GF_CGFM extends GFFeedAddOn {
 						'tooltip'    => sprintf(
 							'<h6>%s</h6>%s',
 							esc_html__( 'Map Fields', 'connector-gravityforms-mailerlite' ),
-							esc_html__( 'Associate your Mailer Lite custom fields to the appropriate Gravity Form fields by selecting the appropriate form field from the list.', 'connector-gravityforms-mailerlite' )
+							esc_html__( 'Associate your MailerLite custom fields to the appropriate Gravity Form fields by selecting the appropriate form field from the list.', 'connector-gravityforms-mailerlite' )
 						),
 					),
 					array(
@@ -294,7 +294,7 @@ class GF_CGFM extends GFFeedAddOn {
 						'tooltip'    => sprintf(
 							'<h6>%s</h6>%s',
 							esc_html__( 'Conditional Logic', 'connector-gravityforms-mailerlite' ),
-							esc_html__( 'When conditional logic is enabled, form submissions will only be exported to Mailer Lite when the condition is met. When disabled all form submissions will be exported.', 'connector-gravityforms-mailerlite' )
+							esc_html__( 'When conditional logic is enabled, form submissions will only be exported to MailerLite when the condition is met. When disabled all form submissions will be exported.', 'connector-gravityforms-mailerlite' )
 						),
 					),
 					array(
@@ -315,7 +315,7 @@ class GF_CGFM extends GFFeedAddOn {
 	}
 
 	/**
-	 * Prepare Mailer Lite custom fields as a field map.
+	 * Prepare MailerLite custom fields as a field map.
 	 *
 	 * @since  3.5
 	 * @access public
@@ -455,7 +455,7 @@ class GF_CGFM extends GFFeedAddOn {
 
 		return array(
 			'feedName'    => esc_html__( 'Name', 'connector-gravityforms-mailerlite' ),
-			'groupList' => esc_html__( 'Mailer Lite Group', 'connector-gravityforms-mailerlite' )
+			'groupList' => esc_html__( 'MailerLite Group', 'connector-gravityforms-mailerlite' )
 		);
 
 	}
@@ -606,8 +606,8 @@ class GF_CGFM extends GFFeedAddOn {
 		$field_map = $this->get_field_map_fields( $feed, 'listFields' );
 
 		/**
-		 * Modify how Mailer Lite Add-On handles blank custom fields.
-		 * The default behaviour is to remove custom fields which don't have a value from the CustomFields array so they aren't sent to Mailer Lite.
+		 * Modify how MailerLite Add-On handles blank custom fields.
+		 * The default behaviour is to remove custom fields which don't have a value from the CustomFields array so they aren't sent to MailerLite.
 		 *
 		 * @since  Unknown
 		 *
@@ -648,11 +648,11 @@ class GF_CGFM extends GFFeedAddOn {
 		}
 
 		/**
-		 * Modify the subscriber parameters before they are sent to Mailer Lite.
+		 * Modify the subscriber parameters before they are sent to MailerLite.
 		 *
 		 * @since  Unknown
 		 *
-		 * @param array $subscriber An associative array containing all the parameters to be passed to Mailer Lite.
+		 * @param array $subscriber An associative array containing all the parameters to be passed to MailerLite.
 		 * @param array $entry      The Entry which is currently being processed.
 		 * @param array $form       The Form which is currently being processed.
 		 * @param array $feed       The Feed which is currently being processed.
@@ -809,7 +809,7 @@ class GF_CGFM extends GFFeedAddOn {
 	// # HELPER METHODS ------------------------------------------------------------------------------------------------
 
 	/**
-	 * Initializes Mailer Lite API if credentials are valid.
+	 * Initializes MailerLite API if credentials are valid.
 	 *
 	 * @since  3.5
 	 * @access public
@@ -871,7 +871,7 @@ class GF_CGFM extends GFFeedAddOn {
 	}
 
 	/**
-	 * Get available Mailer Lite lists as choices.
+	 * Get available MailerLite lists as choices.
 	 *
 	 * @since  3.5
 	 * @access public
