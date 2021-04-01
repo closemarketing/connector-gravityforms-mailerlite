@@ -46,7 +46,7 @@ register_activation_hook( __FILE__, 'connector_gravityforms_activation_check' );
 
 function connector_gravityforms_activation_check() {
 	// Restrict activation to only when the Genesis Framework is activated.
-	if ( ! cgm_is_plugin_active( 'gravityforms/gravityforms.php' ) ) {
+	if ( ! cgm_is_plugin_active( 'gravityforms/gravityforms.php' ) && ! cgm_is_plugin_active( 'gravity-forms/gravityforms.php' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );  // Deactivate ourself.
 		wp_die( sprintf( __( 'Whoa.. this plugin actually works, really, when you have installed the %1$sGravity Forms Plugin%2$s', 'connector-gravityforms-mailerlite' ), '<a href="https://www.closemarketing.es/go/gravityforms/" target="_new">', '</a>' ) );
 	}
