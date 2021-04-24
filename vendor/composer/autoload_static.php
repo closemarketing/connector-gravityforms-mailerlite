@@ -55,8 +55,8 @@ class ComposerStaticInitd76a732996f8259f5798d9ed9b6e80ea
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message/src',
-            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            1 => __DIR__ . '/..' . '/php-http/message/src',
         ),
         'Http\\Discovery\\' => 
         array (
@@ -80,11 +80,16 @@ class ComposerStaticInitd76a732996f8259f5798d9ed9b6e80ea
         ),
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd76a732996f8259f5798d9ed9b6e80ea::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd76a732996f8259f5798d9ed9b6e80ea::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd76a732996f8259f5798d9ed9b6e80ea::$classMap;
 
         }, null, ClassLoader::class);
     }
