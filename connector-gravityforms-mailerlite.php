@@ -1,29 +1,34 @@
 <?php
-/*
+/**
  * Plugin Name: Connector GravityForms MailerLite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
  * Description: Connects GravityForms with MailerLite.
  * Author: closemarketing
  * Author URI: https://www.closemarketing.es
- * Version: 1.3.3
+ * Version: 1.4
  *
  * Text Domain: connector-gravityforms-mailerlite
  *
  * Domain Path: /languages
  *
+ * @package WordPress
+ *
  * License: GNU General Public License version 3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- */
+ **/
 
 defined( 'ABSPATH' ) || exit;
 
 // Loads translation.
 load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define( 'GF_CGFM_VERSION', '1.3.3' );
+define( 'GF_CGFM_VERSION', '1.4' );
 
 /**
- * Detect plugin WooCommerce Mailerlite
+ * Detect plugin WooCommerce MailerLite
+ *
+ * @param string $plugin Plugin name.
+ * @return boolean
  */
 function cgm_is_plugin_active( $plugin ) {
 	return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
@@ -32,24 +37,6 @@ function cgm_is_plugin_active( $plugin ) {
 if ( ! cgm_is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
 	// Plugin is activated.
 	require __DIR__ . '/vendor/autoload.php';
-}
-
-register_activation_hook( __FILE__, 'connector_gravityforms_activation_check' );
-/**
- * Checks for activated GravityForms before allowing plugin to activate
- *
- * @author David Perez
- * @connector_gravityforms_activation_check()
- * @since 1.3.2
- * @version 1.0
- */
-
-function connector_gravityforms_activation_check() {
-	// Restrict activation to only when the Genesis Framework is activated.
-	if ( ! cgm_is_plugin_active( 'gravityforms/gravityforms.php' ) ) {
-		deactivate_plugins( plugin_basename( __FILE__ ) );  // Deactivate ourself.
-		wp_die( sprintf( __( 'Whoa.. this plugin actually works, really, when you have installed the %1$sGravity Forms Plugin%2$s', 'connector-gravityforms-mailerlite' ), '<a href="https://www.closemarketing.es/go/gravityforms/" target="_new">', '</a>' ) );
-	}
 }
 
 // If Gravity Forms is loaded, bootstrap the Campaign Monitor Add-On.
@@ -74,12 +61,11 @@ class GF_CGFM_Bootstrap {
 			return;
 		}
 
-		require_once 'class-gf-mailerlite.php';
+		require_once 'class-gf-cgfm.php';
 
 		GFAddOn::register( 'GF_CGFM' );
 
 	}
-
 }
 
 /**

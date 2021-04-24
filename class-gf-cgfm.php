@@ -10,6 +10,9 @@
 
 GFForms::include_feed_addon_framework();
 
+/**
+ * Class for Adding functionality to GravityForms
+ */
 class GF_CGFM extends GFFeedAddOn {
 
 	/**
@@ -73,7 +76,7 @@ class GF_CGFM extends GFFeedAddOn {
 	 * @access protected
 	 * @var    string The URL of the Add-On.
 	 */
-	protected $_url = 'http://www.gravityforms.com';
+	protected $_url = 'https://wordpress.org/plugins/connector-gravityforms-mailerlite/';
 
 	/**
 	 * Defines the title of this Add-On.
@@ -205,7 +208,7 @@ class GF_CGFM extends GFFeedAddOn {
 					'<p>%s</p>',
 					sprintf(
 						esc_html__( 'MailerLite is an email marketing software for designers and their clients. Use Gravity Forms to collect customer information and automatically add it to your client\'s MailerLite subscription list. If you don\'t have a MailerLite account, you can %1$ssign up for one here.%2$s', 'connector-gravityforms-mailerlite' ),
-						'<a href="http://www.mailerlite.com" target="_blank">',
+						'<a href="https://www.closemarketing.es/likes/mailerlite/" target="_blank">',
 						'</a>'
 					)
 				),
@@ -216,10 +219,10 @@ class GF_CGFM extends GFFeedAddOn {
 						'type'              => 'text',
 						'class'             => 'medium',
 						'feedback_callback' => array( $this, 'initialize_api' ),
-						'description'       => sprintf( wp_kses( __( 'You can find your Developer API key <a href="%s" target="_blank">here</a>.', 'woo-mailerlite' ), array(  'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://app.mailerlite.com/integrations/api/' ) 
+						'description'       => sprintf( wp_kses( __( 'You can find your Developer API key <a href="%s" target="_blank">here</a>.', 'woo-mailerlite' ), array(  'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://app.mailerlite.com/integrations/api/' )
 						),
 					),
-				)
+				),
 			),
 		);
 
@@ -343,8 +346,8 @@ class GF_CGFM extends GFFeedAddOn {
 		try {
 
 			// Get custom fields.
-			$fieldsApi = $this->api->fields();
-			$custom_fields = $fieldsApi->get(); // returns array of fields
+			$fields_api    = $this->api->fields();
+			$custom_fields = $fields_api->get(); // returns array of fields
 
 		} catch ( \Exception $e ) {
 
@@ -405,7 +408,7 @@ class GF_CGFM extends GFFeedAddOn {
 			esc_html__( 'Resubscribe', 'connector-gravityforms-mailerlite' ),
 			esc_html__( 'When this option is enabled, if the subscriber is in an inactive state or has previously been unsubscribed, they will be re-added to the active list. Therefore, this option should be used with caution and only when appropriate.', 'connector-gravityforms-mailerlite' )
 		);
-		
+
 		// Display tooltip.
 		$html = str_replace( '</div>', '&nbsp' . gform_tooltip( $tooltip_content, '', true ) . '</div>', $html );
 
