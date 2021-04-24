@@ -73,7 +73,7 @@ class GF_CGFM extends GFFeedAddOn {
 	 * @access protected
 	 * @var    string The URL of the Add-On.
 	 */
-	protected $_url = 'http://www.gravityforms.com';
+	protected $_url = 'https://wordpress.org/plugins/connector-gravityforms-mailerlite/';
 
 	/**
 	 * Defines the title of this Add-On.
@@ -205,7 +205,7 @@ class GF_CGFM extends GFFeedAddOn {
 					'<p>%s</p>',
 					sprintf(
 						esc_html__( 'MailerLite is an email marketing software for designers and their clients. Use Gravity Forms to collect customer information and automatically add it to your client\'s MailerLite subscription list. If you don\'t have a MailerLite account, you can %1$ssign up for one here.%2$s', 'connector-gravityforms-mailerlite' ),
-						'<a href="http://www.mailerlite.com" target="_blank">',
+						'<a href="https://www.closemarketing.es/likes/mailerlite/" target="_blank">',
 						'</a>'
 					)
 				),

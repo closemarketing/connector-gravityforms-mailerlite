@@ -46,6 +46,7 @@ WordPress installation and then activate the Plugin from Plugins page.
 == Changelog ==
 = 1.4 =
 *	Fixed activation in multisite.
+*	Updated libraries.
 
 = 1.3.3 =
 *     Fixed name MailerLite.
