@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Plugin Name: Connector GravityForms MailerLite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
  * Description: Connects GravityForms with MailerLite.
@@ -11,9 +11,11 @@
  *
  * Domain Path: /languages
  *
+ * @package WordPress
+ *
  * License: GNU General Public License version 3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- */
+ **/
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,7 +25,10 @@ load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plu
 define( 'GF_CGFM_VERSION', '1.4' );
 
 /**
- * Detect plugin WooCommerce Mailerlite
+ * Detect plugin WooCommerce MailerLite
+ *
+ * @param string $plugin Plugin name.
+ * @return boolean
  */
 function cgm_is_plugin_active( $plugin ) {
 	return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
@@ -56,7 +61,7 @@ class GF_CGFM_Bootstrap {
 			return;
 		}
 
-		require_once 'class-gf-mailerlite.php';
+		require_once 'class-gf-cgfm.php';
 
 		GFAddOn::register( 'GF_CGFM' );
 
