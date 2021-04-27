@@ -44,6 +44,9 @@ WordPress installation and then activate the Plugin from Plugins page.
 [Official Repository Github](https://github.com/closemarketing/connector-gravityforms-mailerlite)
 
 == Changelog ==
+= 1.4.1 =
+*	Fixed fatal error with WooMailerLite.
+
 = 1.4 =
 *	Fixed activation in multisite.
 *	Updated libraries.
