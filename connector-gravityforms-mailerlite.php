@@ -5,7 +5,7 @@
  * Description: Connects GravityForms with MailerLite.
  * Author: closemarketing
  * Author URI: https://www.closemarketing.es
- * Version: 1.4
+ * Version: 1.4.1
  *
  * Text Domain: connector-gravityforms-mailerlite
  *
@@ -22,22 +22,9 @@ defined( 'ABSPATH' ) || exit;
 // Loads translation.
 load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define( 'GF_CGFM_VERSION', '1.4' );
+define( 'GF_CGFM_VERSION', '1.4.1' );
 
-/**
- * Detect plugin WooCommerce MailerLite
- *
- * @param string $plugin Plugin name.
- * @return boolean
- */
-function cgm_is_plugin_active( $plugin ) {
-	return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
-}
-
-if ( ! cgm_is_plugin_active( 'woo-mailerlite/woo-mailerlite.php' ) ) {
-	// Plugin is activated.
-	require __DIR__ . '/vendor/autoload.php';
-}
+require __DIR__ . '/vendor/autoload.php';
 
 // If Gravity Forms is loaded, bootstrap the Campaign Monitor Add-On.
 add_action( 'gform_loaded', array( 'GF_CGFM_Bootstrap', 'load' ), 5 );

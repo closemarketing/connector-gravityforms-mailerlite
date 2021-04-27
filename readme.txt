@@ -4,8 +4,8 @@ Tags: genesis, widgets
 Donate link: https://www.closemarketing.es/go/donate/	
 Requires at least: 4.0
 Tested up to: 5.6
-Stable tag: 1.4
-Version: 1.4
+Stable tag: 1.4.1
+Version: 1.4.1
 
 This plugin connects GravityForms with MailerLite.
 
@@ -44,6 +44,9 @@ WordPress installation and then activate the Plugin from Plugins page.
 [Official Repository Github](https://github.com/closemarketing/connector-gravityforms-mailerlite)
 
 == Changelog ==
+= 1.4.1 =
+*	Fixed fatal error with WooMailerLite.
+
 = 1.4 =
 *	Fixed activation in multisite.
 *	Updated libraries.
