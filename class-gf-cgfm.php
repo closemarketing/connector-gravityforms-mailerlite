@@ -208,7 +208,7 @@ class GF_CGFM extends GFFeedAddOn {
 					'<p>%s</p>',
 					sprintf(
 						esc_html__( 'MailerLite is an email marketing software for designers and their clients. Use Gravity Forms to collect customer information and automatically add it to your client\'s MailerLite subscription list. If you don\'t have a MailerLite account, you can %1$ssign up for one here.%2$s', 'connector-gravityforms-mailerlite' ),
-						'<a href="https://www.closemarketing.es/likes/mailerlite/" target="_blank">',
+						'<a href="https://close.marketing/likes/mailerlite/" target="_blank">',
 						'</a>'
 					)
 				),
@@ -219,7 +219,7 @@ class GF_CGFM extends GFFeedAddOn {
 						'type'              => 'text',
 						'class'             => 'medium',
 						'feedback_callback' => array( $this, 'initialize_api' ),
-						'description'       => sprintf( wp_kses( __( 'You can find your Developer API key <a href="%s" target="_blank">here</a>.', 'woo-mailerlite' ), array(  'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://app.mailerlite.com/integrations/api/' )
+						'description'       => sprintf( wp_kses( __( 'You can find your Developer API key <a href="%s" target="_blank">here</a>.', 'connector-gravityforms-mailerlite' ), array(  'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://app.mailerlite.com/integrations/api/' )
 						),
 					),
 				),
@@ -486,8 +486,8 @@ class GF_CGFM extends GFFeedAddOn {
 			$results = $this->mailerlite_api( 'GET', 'groups' );
 
 			foreach ( $results as $group ) {
-				if ( $group->id === (int) $feed['meta']['groupList'] ) {
-					$group_name = $group->name;
+				if ( isset( $group['id'] ) && $group['id'] === (int) $feed['meta']['groupList'] ) {
+					$group_name = $group['name'] ?? '';
 					break;
 				} else {
 					$group_name = __( 'None', 'connector-gravityforms-mailerlite' );
@@ -546,10 +546,9 @@ class GF_CGFM extends GFFeedAddOn {
 
 		// Initialize subscriber object.
 		$subscriber = array(
-			'EmailAddress' => $this->get_field_value( $form, $entry, $feed['meta']['listFields_email'] ),
-			'Name'         => $this->get_field_value( $form, $entry, rgars( $feed, 'meta/listFields_fullname' ) ),
-			'CustomFields' => array(),
-			'Resubscribe'  => rgars( $feed, 'meta/resubscribe' ) ? true : false,
+			'email'        => $this->get_field_value( $form, $entry, $feed['meta']['listFields_email'] ),
+			'name'         => $this->get_field_value( $form, $entry, rgars( $feed, 'meta/listFields_fullname' ) ),
+			'resubscribe'  => rgars( $feed, 'meta/resubscribe' ) ? true : false,
 		);
 
 		// Get field map.
@@ -602,21 +601,9 @@ class GF_CGFM extends GFFeedAddOn {
 			}
 		}
 
-		/**
-		 * Modify the subscriber parameters before they are sent to MailerLite.
-		 *
-		 * @since  Unknown
-		 *
-		 * @param array $subscriber An associative array containing all the parameters to be passed to MailerLite.
-		 * @param array $entry      The Entry which is currently being processed.
-		 * @param array $form       The Form which is currently being processed.
-		 * @param array $feed       The Feed which is currently being processed.
-		 */
-		$subscriber = gf_apply_filters( 'gform_mailerlite_override_subscriber', $form['id'], $subscriber, $entry, $form, $feed );
-
 		try {
 			// Subscribe user.
-			$added_subscriber = $this->mailerlite_api( 'POST', rgars( $feed, 'meta/groupList' ) . '/subscribers', $subscriber );
+			$added_subscriber = $this->mailerlite_api( 'POST', 'groups/' . rgars( $feed, 'meta/groupList' ) . '/subscribers', $subscriber );
 			// returns added subscriber.
 			if ( isset( $added_subscriber['id'] ) ) {
 				return $added_subscriber['id'];
@@ -873,18 +860,17 @@ class GF_CGFM extends GFFeedAddOn {
 			return;
 		}
 		$args = array(
-			array(
-				'method' => $method,
-			),
+			'method' => $method,
 			'headers' => array(
 				'X-MailerLite-ApiKey' => $apikey,
 				'Content-Type'        => 'application/json',
 			),
 		);
 		if ( ! empty( $data ) ) {
-			$args['body'] = $data;
+			$args['body'] = json_encode( $data );
 		}
-		$response = wp_remote_request( 'https://api.mailerlite.com/api/v2/' . $module, $args );
+		$url = 'https://api.mailerlite.com/api/v2/' . $module;
+		$response = wp_remote_request( $url, $args );
 
 		if ( 200 === $response['response']['code'] ) {
 			$body = wp_remote_retrieve_body( $response );

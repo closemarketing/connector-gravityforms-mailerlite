@@ -44,8 +44,8 @@ WordPress installation and then activate the Plugin from Plugins page.
 
 == Changelog ==
 = 1.5 =
-*	Refactoring connection API with native method.
-*  Fix conflict with library. Removed MailerLite library.
+*	Refactoring connection API with native WordPress method.
+*  Fix conflict with library. Removed MailerLite's library.
 *  Fixed resubscribed option.
 
 = 1.4.1 =

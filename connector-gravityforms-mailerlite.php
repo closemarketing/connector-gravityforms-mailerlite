@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Connector GravityForms MailerLite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
- * Description: Connects GravityForms with MailerLite. Sends subscribers when 
+ * Description: Connects GravityForms with MailerLite. Sends subscribers when fills the form.
  * Author: closemarketing
  * Author URI: https://en.close.technology
  * Version: 1.5
