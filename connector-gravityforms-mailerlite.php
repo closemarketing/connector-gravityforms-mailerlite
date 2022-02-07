@@ -24,8 +24,6 @@ load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plu
 
 define( 'GF_CGFM_VERSION', '1.4.1' );
 
-require __DIR__ . '/vendor/autoload.php';
-
 // If Gravity Forms is loaded, bootstrap the Campaign Monitor Add-On.
 add_action( 'gform_loaded', array( 'GF_CGFM_Bootstrap', 'load' ), 5 );
 
