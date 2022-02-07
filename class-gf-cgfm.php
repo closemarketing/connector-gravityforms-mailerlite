@@ -618,7 +618,7 @@ class GF_CGFM extends GFFeedAddOn {
 			// Subscribe user.
 			$added_subscriber = $this->mailerlite_api( 'POST', rgars( $feed, 'meta/groupList' ) . '/subscribers', $subscriber );
 			// returns added subscriber.
-			if ( isset( $added_subscriber->id ) ) {
+			if ( isset( $added_subscriber['id'] ) ) {
 				return $added_subscriber['id'];
 			} else {
 				return false;
@@ -748,10 +748,17 @@ class GF_CGFM extends GFFeedAddOn {
 	 */
 	public function maybe_override_field_value( $field_value, $form, $entry, $field_id ) {
 
-		return gf_apply_filters( 'gform_mailerlite_field_value', array(
+		return gf_apply_filters(
+			'gform_mailerlite_field_value',
+			array(
+				$form['id'],
+				$field_id,
+			),
+			$field_value,
 			$form['id'],
-			$field_id
-		), $field_value, $form['id'], $field_id, $entry );
+			$field_id,
+			$entry
+		);
 
 	}
 
@@ -812,7 +819,7 @@ class GF_CGFM extends GFFeedAddOn {
 	 *
 	 * @return array
 	 */
-	public function get_lists_as_choices( ) {
+	public function get_lists_as_choices() {
 
 		// If API cannot be initialized, return array.
 		if ( ! $this->initialize_api() ) {
@@ -849,6 +856,14 @@ class GF_CGFM extends GFFeedAddOn {
 
 	}
 
+	/**
+	 * Mailer Lite Connector API
+	 *
+	 * @param string $method Method to connect: GET, POST..
+	 * @param string $module URL endpoint.
+	 * @param array  $data   Body data.
+	 * @return array
+	 */
 	private function mailerlite_api( $method, $module, $data = array() ) {
 		// Get the plugin settings.
 		$settings = $this->get_plugin_settings();
@@ -857,7 +872,7 @@ class GF_CGFM extends GFFeedAddOn {
 		if ( ! $apikey ) {
 			return;
 		}
-		$args     = array(
+		$args = array(
 			array(
 				'method' => $method,
 			),
@@ -870,9 +885,7 @@ class GF_CGFM extends GFFeedAddOn {
 			$args['body'] = $data;
 		}
 		$response = wp_remote_request( 'https://api.mailerlite.com/api/v2/' . $module, $args );
-		echo '<pre style="margin-left:200px;">$response:';
-		print_r( $response );
-		echo '</pre>';
+
 		if ( 200 === $response['response']['code'] ) {
 			$body = wp_remote_retrieve_body( $response );
 			return json_decode( $body, true );
