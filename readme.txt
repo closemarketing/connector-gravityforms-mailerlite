@@ -1,16 +1,16 @@
 === Connector GravityForms and MailerLite ===
 Contributors: closemarketing, davidperez, sacrajaimez
 Tags: genesis, widgets
-Donate link: https://www.closemarketing.es/go/donate/	
+Donate link: https://close.marketing/go/donate/	
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 1.4.1
-Version: 1.4.1
+Tested up to: 5.9
+Stable tag: 1.5
+Version: 1.5
 
 This plugin connects GravityForms with MailerLite.
 
 == Description ==
-[GravityForms](https://www.closemarketing.es/go/gravityforms/) plugin gives you the posibility to create forms in a very simple way. It has a lot of addons that connects GravityForms with online services, but [MailerLite](https://www.closemarketing.es/go/mailerlite/) is not in that list.
+[GravityForms](https://close.marketing/go/gravityforms/) plugin gives you the posibility to create forms in a very simple way. It has a lot of addons that connects GravityForms with online services, but [MailerLite](https://close.marketing/go/mailerlite/) is not in that list.
 
 [We are experts in Mailerlite!](https://www.mailerlite.com/experts/closemarketing)
 
@@ -24,14 +24,13 @@ Steps:
 That's all! Every user that fills that form, It will upload lead to MailerLite. 
 
 
-Closemarketing plugins for GravityForms:
-- [Gravity Forms CRM Addon](http://codecanyon.net/item/gravity-forms-crm-addon/10521695)
-- [Gravity Forms in Spanish](https://wordpress.org/plugins/gravityforms-es/)
-- [Connector GravityForms and MailerLite](https://wordpress.org/plugins/connector-gravityforms-mailerlite/)
+Closemarketing plugins for Forms:
+- [FormsCRM](https://wordpress.org/plugins/formscrm/)
+- [Others](https://profiles.wordpress.org/closemarketing/#content-plugins)
 
 
 Others Closemarketing Premium Plugins:
-- [Closemarketing.NET](https://closemarketing.net/productos-online/category/plugin-wordpress/?utm_source=WordPress.org)
+- [Close.technology](https://en.close.technology/products-online/plugins-wordpress/?utm_source=WordPress.org)
 
 
 == Installation ==
@@ -44,6 +43,11 @@ WordPress installation and then activate the Plugin from Plugins page.
 [Official Repository Github](https://github.com/closemarketing/connector-gravityforms-mailerlite)
 
 == Changelog ==
+= 1.5 =
+*	Refactoring connection API with native method.
+*  Fix conflict with library. Removed MailerLite library.
+*  Fixed resubscribed option.
+
 = 1.4.1 =
 *	Fixed fatal error with WooMailerLite.
 
