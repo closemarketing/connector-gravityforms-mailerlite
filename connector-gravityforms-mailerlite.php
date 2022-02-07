@@ -2,10 +2,10 @@
 /**
  * Plugin Name: Connector GravityForms MailerLite
  * Plugin URI: https://github.com/closemarketing/connector-gravityforms-mailerlite
- * Description: Connects GravityForms with MailerLite.
+ * Description: Connects GravityForms with MailerLite. Sends subscribers when 
  * Author: closemarketing
- * Author URI: https://www.closemarketing.es
- * Version: 1.4.1
+ * Author URI: https://en.close.technology
+ * Version: 1.5
  *
  * Text Domain: connector-gravityforms-mailerlite
  *
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 // Loads translation.
 load_plugin_textdomain( 'connector-gravityforms-mailerlite', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define( 'GF_CGFM_VERSION', '1.4.1' );
+define( 'GF_CGFM_VERSION', '1.5' );
 
 // If Gravity Forms is loaded, bootstrap the Campaign Monitor Add-On.
 add_action( 'gform_loaded', array( 'GF_CGFM_Bootstrap', 'load' ), 5 );
