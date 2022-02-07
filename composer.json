@@ -1,5 +1,0 @@
-{
-    "require": {
-        "mailerlite/mailerlite-api-v2-php-sdk": "^0.2.2"
-    }
-}
